@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Cache / local state
+.bpingcode/
+.cache/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.local
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Test artifacts
+coverage/
+tmp/

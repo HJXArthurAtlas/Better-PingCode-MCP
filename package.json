@@ -1,0 +1,38 @@
+{
+  "name": "better-pingcode",
+  "version": "0.1.0",
+  "description": "PingCode MCP server and CLI (pingcode).",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metaphor/better-pingcode.git"
+  },
+  "bin": {
+    "better-pingcode": "bin/pingcode.js",
+    "pingcode": "bin/pingcode.js"
+  },
+  "files": [
+    "README.md",
+    "bin/",
+    "src/"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.js",
+    "pack:check": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2"
+  },
+  "keywords": [
+    "mcp",
+    "pingcode",
+    "cli",
+    "ai-agent"
+  ]
+}
