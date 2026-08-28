@@ -8,39 +8,36 @@ No installation required. Use with `npx -y`:
 
 ```bash
 # Run the CLI
-npx -y better-pingcode --help
-npx -y better-pingcode auth login --client-id ID --client-secret SECRET
+npx -y @arthuratlas/better-pingcode --help
 
 # Start the MCP server
-npx -y better-pingcode --mcp
+npx -y @arthuratlas/better-pingcode --mcp
 ```
 
 You can also install it globally:
 
 ```bash
-npm install -g better-pingcode
+npm install -g @arthuratlas/better-pingcode
 pingcode --help
 pingcode --mcp
+pingcode init
 ```
 
 ## CLI Usage
 
 ### Authentication
 
-Log in with OAuth2 user token:
+Use `pingcode init` to authenticate and configure MCP clients in one step.
 
 ```bash
-# Default: print URL and paste code
-pingcode auth login --client-id ID --client-secret SECRET
-
-# Open browser automatically
-pingcode auth login --client-id ID --client-secret SECRET --browser
-
-# Check status
-pingcode auth status
+pingcode init --client-id ID --client-secret SECRET
 ```
 
-If `PINGCODE_CLIENT_ID` and `PINGCODE_CLIENT_SECRET` are set as environment variables, you can omit the flags.
+Check status:
+
+```bash
+pingcode auth status
+```
 
 ### Workspace Context
 
@@ -75,6 +72,40 @@ pingcode workitem create --title "Fix login" --type task --project "Core" --spri
 pingcode workitem update SCR-123 --state 已完成 --dry-run
 ```
 
+### Init
+
+Authenticate and configure supported AI clients in one command:
+
+```bash
+# 1. Enter client id/secret, 2. pick clients, 3. confirm
+pingcode init
+
+# Non-interactive: authenticate + configure all clients
+pingcode init --all --yes --client-id ID --client-secret SECRET
+
+# Configure specific clients
+pingcode init --tool codex --tool opencode
+
+# Preview the changes without writing files
+pingcode init --all --dry-run
+```
+
+交互式界面支持：
+
+- `↑` / `↓` 移动光标
+- `Space` 勾选 / 取消勾选
+- `Backspace` 删除搜索过滤字符
+- `Enter` 确认选择
+- 二次确认后才会真正写入文件
+
+The command updates each tool's global (user-level) MCP config:
+
+- Codex: `~/.codex/config.toml`
+- OpenCode: `~/.config/opencode/opencode.json`
+- Oh My Pi: `~/.omp/agent/mcp.json`
+
+Existing entries for other MCP servers are preserved; the `pingcode` entry is added or replaced incrementally.
+
 ## MCP Usage
 
 Add to your MCP client config (e.g., Claude Desktop, Cursor, Cline):
@@ -84,7 +115,7 @@ Add to your MCP client config (e.g., Claude Desktop, Cursor, Cline):
   "mcpServers": {
     "pingcode": {
       "command": "npx",
-      "args": ["-y", "better-pingcode", "--mcp"],
+      "args": ["-y", "@arthuratlas/better-pingcode@latest", "--mcp"],
       "env": {
         "PINGCODE_CLIENT_ID": "your-client-id",
         "PINGCODE_CLIENT_SECRET": "your-client-secret"

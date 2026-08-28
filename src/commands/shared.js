@@ -91,7 +91,7 @@ function parseGlobalOptions(tokens, extraBooleanFlags = []) {
       continue;
     }
     if (booleanFlags.has(arg)) {
-      const key = arg.replace(/^--no-/, '').replace(/-/g, '_');
+      const key = arg.replace(/^--(?:no-)?/, '').replace(/-/g, '_');
       if (arg.startsWith('--no-')) {
         opts[key] = false;
       } else {

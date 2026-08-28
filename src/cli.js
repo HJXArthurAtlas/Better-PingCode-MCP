@@ -9,6 +9,7 @@ require('./commands/workitem');
 require('./commands/comment');
 require('./commands/attachment');
 require('./commands/idea');
+require('./commands/init');
 require('./commands/product');
 
 async function runCli(argv) {

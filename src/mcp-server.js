@@ -7,6 +7,7 @@ const { CallToolRequestSchema, ListToolsRequestSchema } = require('@modelcontext
 const core = require('./core');
 const authCmd = require('./commands/auth');
 const workitemCmd = require('./commands/workitem');
+const pkg = require('../package.json');
 
 function buildClient(args) {
   const clientId = args.client_id || process.env.PINGCODE_CLIENT_ID || null;
@@ -193,12 +194,12 @@ const TOOLS = [
       type: 'object',
       properties: {
         id: { type: 'string', description: 'Work item id or identifier' },
+        identifier: { type: 'string', description: 'Work item identifier such as SCR-123' },
         base_url: { type: 'string' },
         client_id: { type: 'string' },
         client_secret: { type: 'string' },
         grant_type: { type: 'string' },
       },
-      required: ['id'],
     },
   },
   {
@@ -367,7 +368,7 @@ async function handleTool(name, args) {
     case 'pingcode_workitem_get': {
       const client = buildClient(args);
       const opts = { dry_run: false, compact: false };
-      const getArgs = workitemCmd.parseGetArgs([args.id]);
+      const getArgs = workitemCmd.parseGetArgs([args.id || args.identifier]);
       const result = await workitemCmd.runGet(client, opts, getArgs);
       return jsonResponse(core.compactResponse(result));
     }
@@ -403,7 +404,7 @@ async function handleTool(name, args) {
         compact: false,
         user_id: args.user_id || process.env.PINGCODE_USER_ID,
       };
-      const tokens = [args.id];
+      const tokens = [args.id || args.identifier];
       if (args.title) tokens.push('--title', args.title);
       if (args.description) tokens.push('--description', args.description);
       if (args.type) tokens.push('--type', args.type);
@@ -436,7 +437,7 @@ async function handleTool(name, args) {
 
 async function runMcpServer() {
   const server = new Server(
-    { name: 'better-pingcode', version: '0.1.0' },
+    { name: 'better-pingcode', version: pkg.version },
     { capabilities: { tools: {} } }
   );
 

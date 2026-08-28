@@ -1,6 +1,6 @@
 {
-  "name": "better-pingcode",
-  "version": "0.1.0",
+  "name": "@arthuratlas/better-pingcode",
+  "version": "0.2.2",
   "description": "PingCode MCP server and CLI (pingcode).",
   "license": "MIT",
   "publishConfig": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/metaphor/better-pingcode.git"
+    "url": "git+https://github.com/arthuratlas/better-pingcode.git"
   },
   "bin": {
     "better-pingcode": "bin/pingcode.js",

@@ -444,4 +444,4 @@ shared.registerModule('workitem', {
   run,
 });
 
-module.exports = { run, printHelp, parseListArgs, parseCreateArgs, parseGetArgs, parseUpdateArgs };
+module.exports = { run, printHelp, parseListArgs, parseCreateArgs, parseGetArgs, parseUpdateArgs, runList, runGet, runCreate, runUpdate };

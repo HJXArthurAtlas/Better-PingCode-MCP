@@ -295,7 +295,6 @@ function printHelp() {
     'pingcode auth — Authenticate with PingCode',
     '',
     'Subcommands:',
-    '  login    Log in via OAuth2 authorization_code',
     '  status   Show authentication status',
     '',
     'Run `pingcode auth <subcommand> --help` for details.',
@@ -311,9 +310,6 @@ async function run(argv, inputFunc) {
   const subcommand = tokens[0];
   const remaining = tokens.slice(1);
   switch (subcommand) {
-    case 'login':
-      await runLogin(remaining, inputFunc);
-      break;
     case 'status':
       await runStatus(remaining);
       break;
