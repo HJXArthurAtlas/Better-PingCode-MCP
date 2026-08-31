@@ -10,6 +10,10 @@ const mcpCmd = require('./mcp');
 const DEFAULT_REDIRECT_URI = 'http://127.0.0.1:8765/callback';
 const DEFAULT_PORT = 8765;
 
+function dim(text) {
+  return `\x1b[2m${text}\x1b[0m`;
+}
+
 function createAsk(inputFunc) {
   if (typeof inputFunc === 'function') {
     return inputFunc;
@@ -152,8 +156,8 @@ async function run(argv, inputFunc) {
 
   const ask = createAsk(inputFunc);
   try {
-    const clientId = (parsed.opts.client_id || (await ask('PingCode Client ID: '))).trim();
-    const clientSecret = (parsed.opts.client_secret || (await ask('PingCode Client Secret: '))).trim();
+    const clientId = (parsed.opts.client_id || (await ask(dim('PingCode Client ID: ')))).trim();
+    const clientSecret = (parsed.opts.client_secret || (await ask(dim('PingCode Client Secret: ')))).trim();
     if (!clientId) {
       throw new core.PingCodeError('Missing PingCode Client ID');
     }
