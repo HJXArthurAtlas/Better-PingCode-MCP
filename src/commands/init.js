@@ -114,13 +114,34 @@ async function runLoginIfNeeded(opts, clientId, clientSecret, inputFunc) {
     return;
   }
 
-  const loginArgs = ['--client-id', clientId, '--client-secret', clientSecret, '--redirect-uri', opts.redirect_uri];
-  if (opts.browser) loginArgs.push('--browser');
+  console.log('Trying client_credentials authentication...');
+  try {
+    const client = new core.PingCodeClient({
+      base_url: opts.base_url,
+      client_id: clientId,
+      client_secret: clientSecret,
+      token_cache: opts.no_token_cache ? null : opts.token_cache,
+      workspace_cache: null,
+      grant_type: 'client_credentials',
+    });
+    await client.accessToken();
+    console.log('Authenticated with client_credentials.');
+    return;
+  } catch (exc) {
+    const message = exc.message || '';
+    const invalidCredsMatch = message.match(/"code"\s*:\s*"100024"/);
+    if (invalidCredsMatch) {
+      throw new core.PingCodeError('Invalid PingCode Client ID or Client Secret. Please check your credentials.');
+    }
+    console.log(`client_credentials not available: ${exc.message}`);
+    console.log('Switching to browser login (authorization_code)...');
+  }
+
+  const loginArgs = ['--client-id', clientId, '--client-secret', clientSecret, '--redirect-uri', opts.redirect_uri, '--browser', '--grant-type', 'authorization_code'];
   if (opts.code) loginArgs.push('--code', opts.code);
   if (opts.port) loginArgs.push('--port', String(opts.port));
   if (opts.no_token_cache) loginArgs.push('--no-token-cache');
 
-  console.log('Authenticating with PingCode...');
   await authCmd.runLogin(loginArgs, inputFunc);
 }
 

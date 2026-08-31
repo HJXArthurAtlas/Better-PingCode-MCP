@@ -8,6 +8,7 @@ const path = require('node:path');
 
 const init = require('../src/commands/init');
 const auth = require('../src/commands/auth');
+const core = require('../src/core');
 
 describe('parseInitArgs', () => {
   it('parses all init options', () => {
@@ -48,12 +49,9 @@ describe('init run', () => {
     dir = fs.mkdtempSync(path.join(os.tmpdir(), 'better-pingcode-init-'));
     originalHomedir = os.homedir;
     os.homedir = () => dir;
-    const tokenCacheSource = path.join(process.env.HOME, '.cache', 'bpingcode', 'token.json');
     const tokenCacheDest = path.join(dir, '.cache', 'bpingcode', 'token.json');
-    if (fs.existsSync(tokenCacheSource)) {
-      fs.mkdirSync(path.dirname(tokenCacheDest), { recursive: true });
-      fs.copyFileSync(tokenCacheSource, tokenCacheDest);
-    }
+    fs.mkdirSync(path.dirname(tokenCacheDest), { recursive: true });
+    core.saveCachedToken(tokenCacheDest, 'test-token', 3600, 'client_credentials');
   });
 
   afterEach(() => {
