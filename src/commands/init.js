@@ -133,8 +133,6 @@ async function runLoginIfNeeded(opts, clientId, clientSecret, inputFunc) {
     if (invalidCredsMatch) {
       throw new core.PingCodeError('Invalid PingCode Client ID or Client Secret. Please check your credentials.');
     }
-    console.log(`client_credentials not available: ${exc.message}`);
-    console.log('Switching to browser login (authorization_code)...');
   }
 
   const loginArgs = ['--client-id', clientId, '--client-secret', clientSecret, '--redirect-uri', opts.redirect_uri, '--browser', '--grant-type', 'authorization_code'];

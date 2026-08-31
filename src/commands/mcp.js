@@ -365,6 +365,7 @@ async function checkboxSelect(label, items, inputFunc) {
     }
 
     process.stdout.write('\x1b[?25l'); // hide cursor
+    process.stdout.write('\x1b[2J\x1b[H'); // clear screen and move cursor to top
     process.stdin.setRawMode(true);
     process.stdin.resume();
     process.stdin.on('data', onData);
