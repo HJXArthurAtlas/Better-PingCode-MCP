@@ -1,0 +1,27 @@
+name: Sync from GitLab
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch latest from GitLab
+        run: |
+          git init --quiet
+          git remote add gitlab https://gitlab.com/ArthurAtlas/better-pingcode.git
+          git fetch gitlab main
+
+      - name: Push to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          git checkout -b main gitlab/main
+          git push origin main --force
