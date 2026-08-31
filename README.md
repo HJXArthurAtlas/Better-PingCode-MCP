@@ -2,6 +2,8 @@
 
 PingCode MCP server and CLI (`pingcode`). Provides both a command-line interface for humans and an MCP server for AI agents.
 
+Also available in [中文](README.zh.md).
+
 ## Install / Run
 
 No installation required. Use with `npx -y`:
@@ -27,7 +29,7 @@ pingcode init
 
 ### Authentication
 
-Use `pingcode init` to authenticate and configure MCP clients in one step.
+Use `pingcode init` to authenticate and configure MCP clients in one step:
 
 ```bash
 pingcode init --client-id ID --client-secret SECRET
@@ -60,7 +62,7 @@ pingcode context list
 
 ```bash
 # List my open tasks
-pingcode workitem list --assignee @me --state 进行中 --compact
+pingcode workitem list --assignee @me --state "In Progress" --compact
 
 # Get by identifier
 pingcode workitem get SCR-123 --compact
@@ -69,7 +71,7 @@ pingcode workitem get SCR-123 --compact
 pingcode workitem create --title "Fix login" --type task --project "Core" --sprint "Sprint 1" --dry-run
 
 # Update state
-pingcode workitem update SCR-123 --state 已完成 --dry-run
+pingcode workitem update SCR-123 --state "Done" --dry-run
 ```
 
 ### Init
@@ -90,13 +92,13 @@ pingcode init --tool codex --tool opencode
 pingcode init --all --dry-run
 ```
 
-交互式界面支持：
+Interactive selection keybindings:
 
-- `↑` / `↓` 移动光标
-- `Space` 勾选 / 取消勾选
-- `Backspace` 删除搜索过滤字符
-- `Enter` 确认选择
-- 二次确认后才会真正写入文件
+- `↑` / `↓` to move the cursor
+- `Space` to toggle selection
+- `Backspace` to delete a search filter character
+- `Enter` to confirm
+- Files are only written after the final confirmation
 
 The command updates each tool's global (user-level) MCP config:
 
