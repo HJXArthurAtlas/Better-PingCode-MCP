@@ -1,6 +1,6 @@
 {
   "name": "@arthuratlas/better-pingcode",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "PingCode MCP server and CLI (pingcode).",
   "license": "MIT",
   "publishConfig": {
