@@ -1,4 +1,4 @@
-# better-pingcode
+# Better PingCode MCP
 
 PingCode MCP server 与 CLI (`pingcode`)。同时提供面向人类的命令行界面和面向 AI agent 的 MCP server。
 

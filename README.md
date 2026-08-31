@@ -1,4 +1,4 @@
-# better-pingcode
+# Better PingCode MCP
 
 PingCode MCP server and CLI (`pingcode`). Provides both a command-line interface for humans and an MCP server for AI agents.
 
