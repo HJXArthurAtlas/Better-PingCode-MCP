@@ -1,6 +1,6 @@
 {
   "name": "@arthuratlas/better-pingcode",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "PingCode MCP server and CLI (pingcode).",
   "license": "MIT",
   "publishConfig": {
@@ -29,6 +29,9 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.10.2"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.49.0"
   },
   "keywords": [
     "mcp",
